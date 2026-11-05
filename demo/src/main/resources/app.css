@@ -63,6 +63,13 @@
     -fx-text-fill: #e27755;
 }
 
+.winning-cell {
+    -fx-background-color: #fff3a3;
+    -fx-border-color: #e6bd3a;
+    -fx-border-width: 3px;
+    -fx-border-radius: 17px;
+}
+
 .hint {
     -fx-text-fill: #9eafc2;
     -fx-font-size: 13px;
