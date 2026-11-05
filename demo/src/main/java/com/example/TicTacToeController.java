@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
@@ -67,6 +69,7 @@ public class TicTacToeController {
             gameOver = true;
             view.setStatus(currentMarker == 'X' ? "You win!" : "CPU wins!");
             view.setBoardDisabled(true);
+            highlightWinningCells();
             return true;
         }
         if (board.isFull()) {
@@ -76,6 +79,46 @@ public class TicTacToeController {
             return true;
         }
         return false;
+    }
+
+    private void highlightWinningCells() {
+        List<int[]> winningCells = new ArrayList<>();
+
+        for (int index = 0; index < 3; index++) {
+            if (isWinningMarker(board.getCell(index, 0), board.getCell(index, 1),
+                    board.getCell(index, 2))) {
+                winningCells.add(new int[]{index, 0});
+                winningCells.add(new int[]{index, 1});
+                winningCells.add(new int[]{index, 2});
+            }
+            if (isWinningMarker(board.getCell(0, index), board.getCell(1, index),
+                    board.getCell(2, index))) {
+                winningCells.add(new int[]{0, index});
+                winningCells.add(new int[]{1, index});
+                winningCells.add(new int[]{2, index});
+            }
+        }
+
+        if (isWinningMarker(board.getCell(0, 0), board.getCell(1, 1),
+                board.getCell(2, 2))) {
+            winningCells.add(new int[]{0, 0});
+            winningCells.add(new int[]{1, 1});
+            winningCells.add(new int[]{2, 2});
+        }
+        if (isWinningMarker(board.getCell(0, 2), board.getCell(1, 1),
+                board.getCell(2, 0))) {
+            winningCells.add(new int[]{0, 2});
+            winningCells.add(new int[]{1, 1});
+            winningCells.add(new int[]{2, 0});
+        }
+
+        for (int[] cell : winningCells) {
+            view.highlightCell(cell[0], cell[1]);
+        }
+    }
+
+    private boolean isWinningMarker(char first, char second, char third) {
+        return first != ' ' && first == second && second == third;
     }
 
     private void restart() {

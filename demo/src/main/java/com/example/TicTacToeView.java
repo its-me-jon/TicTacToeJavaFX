@@ -74,7 +74,7 @@ public class TicTacToeView {
             for (Button cell : row) {
                 cell.setText("");
                 cell.setDisable(false);
-                cell.getStyleClass().removeAll("x-cell", "o-cell");
+                cell.getStyleClass().removeAll("x-cell", "o-cell", "winning-cell");
             }
         }
     }
@@ -87,6 +87,10 @@ public class TicTacToeView {
                 }
             }
         }
+    }
+
+    public void highlightCell(int row, int column) {
+        cells[row][column].getStyleClass().add("winning-cell");
     }
 
     public Button getRestartButton() {
